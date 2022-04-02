@@ -78,7 +78,7 @@ if game == "der, die, das?":
         if nominativ != st.session_state.translation:
             st.info('Your noun is [{0}]({1}), meaning \"{2}\"...'.format(nominativ,link,st.session_state.translation))
         else:
-            st.info('Your noun is [{0}](https://de.wiktionary.org/wiki/{1})...'.format(nominativ,link))
+            st.info('Your noun is [{0}]({1})...'.format(nominativ,link))
         
         #show gender options and check if selected is correct
         option = st.radio('Select a gender',['Choose your answer','der','die','das'],key=st.session_state.plays)
