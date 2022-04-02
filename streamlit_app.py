@@ -70,12 +70,13 @@ if game == "der, die, das?":
             continue
         
         #translate word and generates correct link string to Wiktionary
-        translation = translator.translate_text(nominativ, target_lang="EN-US").text
+        if 'translation' not in st.session_state:
+            st.session_state.translation = translator.translate_text(nominativ, target_lang="EN-US").text
         link = "https://de.wiktionary.org/wiki/{}".format(nominativ.replace(' ','_'))
         
         #show word prompt
-        if nominativ != translation:
-            st.info('Your noun is [{0}]({1}), meaning \"{2}\"...'.format(nominativ,link,translation))
+        if nominativ != st.session_state.translation:
+            st.info('Your noun is [{0}]({1}), meaning \"{2}\"...'.format(nominativ,link,st.session_state.translation))
         else:
             st.info('Your noun is [{0}](https://de.wiktionary.org/wiki/{1})...'.format(nominativ,link))
         
@@ -98,12 +99,14 @@ if game == "der, die, das?":
             refresh = st.button('Give me a new word!')
         if refresh == len(nounEntries):
             del st.session_state["nounInt"]
+            del st.session_state["translation"]
             st.session_state.plays += 1
             st.experimental_rerun()
     
     #if word is not useful, reruns to choose a new random int
     if tries >= len(nounEntries):
         del st.session_state["nounInt"]
+        del st.session_state["translation"]
         st.experimental_rerun()
         
 if game == "text correction":
