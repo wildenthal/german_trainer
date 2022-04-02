@@ -99,14 +99,20 @@ if game == "der, die, das?":
             refresh = st.button('Give me a new word!')
         if refresh == len(nounEntries):
             del st.session_state["nounInt"]
-            del st.session_state["translation"]
+            try:
+                del st.session_state["translation"]
+            except KeyError:
+                pass
             st.session_state.plays += 1
             st.experimental_rerun()
     
     #if word is not useful, reruns to choose a new random int
     if tries >= len(nounEntries):
         del st.session_state["nounInt"]
-        del st.session_state["translation"]
+        try:
+            del st.session_state["translation"]
+        except KeyError:
+            pass
         st.experimental_rerun()
         
 if game == "text correction":
