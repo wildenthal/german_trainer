@@ -126,26 +126,30 @@ if game == "text correction":
     
     if submit and text != "":
         st.info("Note: these corrections may mix articles (i.e. replace ihn/sie with es).")
-        for sentence in text.split(". "):
-            
-            #recover original meaning intended by user (hopefully)
-            to_src = translator.translate_text(sentence, target_lang=langCode).text
-            
-            #translate to gramatically correct German
-            to_german = translator.translate_text(to_src, target_lang="DE").text
-            
-            st.markdown(f'>>{sentence}\n')
-            if to_german == to_src:
-                st.markdown('This means: ')
-                st.markdown(f'>>{to_src}\n')
-                st.markdown("This sentence could not be corrected.")
-                st.markdown('---')
-            if to_german != sentence and to_german != to_src:
-                st.markdown('This should (probably) be: ')
-                st.markdown(f'>>{to_german}\n')
-                st.markdown('Which means: ')
-                st.markdown(f'>>{to_src}\n')
-                st.markdown('---')
-            if to_german == sentence:
-                st.markdown('This sentence was perfect!\n')
-                st.markdown('---')
+        #for sentence in text.split(". "):
+        
+        #recover original meaning intended by user (hopefully)
+        to_src = translator.translate_text(text, target_lang=langCode).text
+        
+        #translate to gramatically correct German
+        to_german = translator.translate_text(to_src, target_lang="DE").text
+        
+        st.markdown("Your corrected text is:")
+        st.markdown(f'>>{to_german}\n')
+        
+        st.markdown("What you wrote was interpreted to mean:")
+        st.markdown(f'>>{to_src}\n')
+            # if to_german == to_src:
+                # st.markdown('This means: ')
+                # st.markdown(f'>>{to_src}\n')
+                # st.markdown("This sentence could not be corrected.")
+                # st.markdown('---')
+            # if to_german != sentence and to_german != to_src:
+                # st.markdown('This should (probably) be: ')
+                # st.markdown(f'>>{to_german}\n')
+                # st.markdown('Which means: ')
+                # st.markdown(f'>>{to_src}\n')
+                # st.markdown('---')
+            # if to_german == sentence:
+                # st.markdown('This sentence was perfect!\n')
+                # st.markdown('---')
